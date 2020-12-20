@@ -16,12 +16,12 @@ In the build folder, we have an `optimized.wasm` file which can be imported to a
 > [It]...makes working with AssemblyScript modules as convenient as it gets without sacrificing efficiency.
 
 NodeJS
-`
-const fs = require("fs");\s\s
-const loader = require("@assemblyscript/loader");\s\s
-const imports = { /* imports go here */ };\s\s
-const wasmModule = loader.instantiateSync(fs.readFileSync(__dirname + "/build/optimized.wasm"), imports);\s\s
-`
+```
+const fs = require("fs");
+const loader = require("@assemblyscript/loader");
+const imports = { /* imports go here */ };
+const wasmModule = loader.instantiateSync(fs.readFileSync(__dirname + "/build/optimized.wasm"), imports);
+```
 
 
 Now to use in your application  
