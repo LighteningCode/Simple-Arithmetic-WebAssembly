@@ -26,6 +26,9 @@
  (export "__release" (func $~lib/rt/pure/__release))
  (export "__rtti_base" (global $~lib/rt/__rtti_base))
  (export "add" (func $assembly/index/add))
+ (export "subtract" (func $assembly/index/subtract))
+ (export "multiply" (func $assembly/index/multiply))
+ (export "divide" (func $assembly/index/divide))
  (func $~lib/rt/tlsf/removeBlock (param $0 i32) (param $1 i32)
   (local $2 i32)
   (local $3 i32)
@@ -2989,6 +2992,21 @@
   local.get $0
   local.get $1
   i32.add
+ )
+ (func $assembly/index/subtract (param $0 i32) (param $1 i32) (result i32)
+  local.get $0
+  local.get $1
+  i32.sub
+ )
+ (func $assembly/index/multiply (param $0 i32) (param $1 i32) (result i32)
+  local.get $0
+  local.get $1
+  i32.mul
+ )
+ (func $assembly/index/divide (param $0 i32) (param $1 i32) (result i32)
+  local.get $0
+  local.get $1
+  i32.div_s
  )
  (func $~lib/rt/pure/finalize (param $0 i32)
   i32.const 0
