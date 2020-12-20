@@ -6,7 +6,8 @@ I wrote 8 AssemblyScript functions
 4 of them just perform an operation on 2 values
 4 of them just perform an operation on an array
 
-And these are the results
+And these are the results  
+
 ![Results](./image1.jpg)
 
 ##### How to use
@@ -15,13 +16,15 @@ In the build folder, we have an `optimized.wasm` file which can be imported to a
 > [It]...makes working with AssemblyScript modules as convenient as it gets without sacrificing efficiency.
 
 NodeJS
-`const fs = require("fs");`
-`const loader = require("@assemblyscript/loader");`
-`const imports = { /* imports go here */ };`
-`const wasmModule = loader.instantiateSync(fs.readFileSync(__dirname + "/build/optimized.wasm"), imports);`
+`
+const fs = require("fs");\s\s
+const loader = require("@assemblyscript/loader");\s\s
+const imports = { /* imports go here */ };\s\s
+const wasmModule = loader.instantiateSync(fs.readFileSync(__dirname + "/build/optimized.wasm"), imports);\s\s
+`
 
 
-Now to use in your application
+Now to use in your application  
 `console.log(wasmModule.exports.yourFunc(...args))`
 
 Simple? yep
