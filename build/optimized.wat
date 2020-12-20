@@ -1,19 +1,22 @@
 (module
  (type $i32_i32_=>_i32 (func (param i32 i32) (result i32)))
- (type $i32_i32_=>_none (func (param i32 i32)))
- (type $i32_i32_i32_=>_none (func (param i32 i32 i32)))
  (type $i32_=>_i32 (func (param i32) (result i32)))
  (type $i32_=>_none (func (param i32)))
+ (type $i32_i32_=>_none (func (param i32 i32)))
+ (type $i32_i32_i32_=>_none (func (param i32 i32 i32)))
  (type $none_=>_none (func))
  (type $i32_i32_i32_i32_=>_none (func (param i32 i32 i32 i32)))
  (type $i32_i32_i32_=>_i32 (func (param i32 i32 i32) (result i32)))
+ (type $i32_=>_f32 (func (param i32) (result f32)))
+ (type $i32_i32_=>_f32 (func (param i32 i32) (result f32)))
  (import "env" "abort" (func $~lib/builtins/abort (param i32 i32 i32 i32)))
  (memory $0 1)
  (data (i32.const 1036) "<\00\00\00\01\00\00\00\00\00\00\00\01\00\00\00(\00\00\00a\00l\00l\00o\00c\00a\00t\00i\00o\00n\00 \00t\00o\00o\00 \00l\00a\00r\00g\00e")
  (data (i32.const 1100) "<\00\00\00\01\00\00\00\00\00\00\00\01\00\00\00\1e\00\00\00~\00l\00i\00b\00/\00r\00t\00/\00p\00u\00r\00e\00.\00t\00s")
  (data (i32.const 1164) "<\00\00\00\01\00\00\00\00\00\00\00\01\00\00\00\1e\00\00\00~\00l\00i\00b\00/\00r\00t\00/\00t\00l\00s\00f\00.\00t\00s")
- (data (i32.const 1232) "\03\00\00\00 \00\00\00\00\00\00\00 \00\00\00\00\00\00\00 ")
+ (data (i32.const 1232) "\05\00\00\00 \00\00\00\00\00\00\00 \00\00\00\00\00\00\00 \00\00\00\00\00\00\00!\t\00\00\02\00\00\00!\19\00\00\02")
  (global $~lib/rt/tlsf/ROOT (mut i32) (i32.const 0))
+ (global $assembly/index/Int32Array_ID i32 (i32.const 3))
  (global $~lib/rt/__rtti_base i32 (i32.const 1232))
  (export "memory" (memory $0))
  (export "__new" (func $~lib/rt/pure/__new))
@@ -25,6 +28,11 @@
  (export "subtract" (func $assembly/index/subtract))
  (export "multiply" (func $assembly/index/multiply))
  (export "divide" (func $assembly/index/divide))
+ (export "addAll" (func $assembly/index/addAll))
+ (export "subtractAll" (func $assembly/index/subtractAll))
+ (export "multiplyAll" (func $assembly/index/multiplyAll))
+ (export "divideAll" (func $assembly/index/divideAll))
+ (export "Int32Array_ID" (global $assembly/index/Int32Array_ID))
  (func $~lib/rt/tlsf/removeBlock (param $0 i32) (param $1 i32)
   (local $2 i32)
   (local $3 i32)
@@ -592,10 +600,10 @@
   if
    unreachable
   end
-  i32.const 1264
+  i32.const 1280
   i32.const 0
   i32.store
-  i32.const 2832
+  i32.const 2848
   i32.const 0
   i32.store
   loop $for-loop|0
@@ -606,7 +614,7 @@
     local.get $1
     i32.const 2
     i32.shl
-    i32.const 1264
+    i32.const 1280
     i32.add
     i32.const 0
     i32.store offset=4
@@ -624,7 +632,7 @@
       i32.add
       i32.const 2
       i32.shl
-      i32.const 1264
+      i32.const 1280
       i32.add
       i32.const 0
       i32.store offset=96
@@ -642,13 +650,13 @@
     br $for-loop|0
    end
   end
-  i32.const 1264
-  i32.const 2836
+  i32.const 1280
+  i32.const 2852
   memory.size
   i32.const 16
   i32.shl
   call $~lib/rt/tlsf/addMemory
-  i32.const 1264
+  i32.const 1280
   global.set $~lib/rt/tlsf/ROOT
  )
  (func $~lib/rt/tlsf/prepareSize (param $0 i32) (result i32)
@@ -1270,7 +1278,7 @@
   i32.and
   call $~lib/memory/memory.copy
   local.get $1
-  i32.const 1260
+  i32.const 1276
   i32.ge_u
   if
    local.get $0
@@ -1312,7 +1320,7 @@
   i32.add
   local.set $2
   local.get $0
-  i32.const 1260
+  i32.const 1276
   i32.lt_u
   if
    global.get $~lib/rt/tlsf/ROOT
@@ -1407,7 +1415,7 @@
   (local $1 i32)
   (local $2 i32)
   local.get $0
-  i32.const 1260
+  i32.const 1276
   i32.gt_u
   if
    local.get $0
@@ -1454,7 +1462,7 @@
  )
  (func $~lib/rt/pure/__release (param $0 i32)
   local.get $0
-  i32.const 1260
+  i32.const 1276
   i32.gt_u
   if
    local.get $0
@@ -1483,6 +1491,161 @@
   local.get $1
   i32.div_s
  )
+ (func $~lib/typedarray/Int32Array#__uget (param $0 i32) (param $1 i32) (result i32)
+  local.get $0
+  i32.load offset=4
+  local.get $1
+  i32.const 2
+  i32.shl
+  i32.add
+  i32.load
+ )
+ (func $assembly/index/addAll (param $0 i32) (result i32)
+  (local $1 i32)
+  (local $2 i32)
+  (local $3 i32)
+  local.get $0
+  call $~lib/rt/pure/__retain
+  local.tee $0
+  i32.load offset=8
+  i32.const 2
+  i32.shr_u
+  local.set $3
+  loop $for-loop|0
+   local.get $1
+   local.get $3
+   i32.lt_s
+   if
+    local.get $0
+    local.get $1
+    call $~lib/typedarray/Int32Array#__uget
+    local.get $2
+    i32.add
+    local.set $2
+    local.get $1
+    i32.const 1
+    i32.add
+    local.set $1
+    br $for-loop|0
+   end
+  end
+  local.get $0
+  call $~lib/rt/pure/__release
+  local.get $2
+ )
+ (func $assembly/index/subtractAll (param $0 i32) (result i32)
+  (local $1 i32)
+  (local $2 i32)
+  (local $3 i32)
+  local.get $0
+  call $~lib/rt/pure/__retain
+  local.tee $0
+  i32.load offset=8
+  i32.const 2
+  i32.shr_u
+  local.set $3
+  loop $for-loop|0
+   local.get $1
+   local.get $3
+   i32.lt_s
+   if
+    local.get $2
+    local.get $0
+    local.get $1
+    call $~lib/typedarray/Int32Array#__uget
+    i32.sub
+    local.set $2
+    local.get $1
+    i32.const 1
+    i32.add
+    local.set $1
+    br $for-loop|0
+   end
+  end
+  local.get $0
+  call $~lib/rt/pure/__release
+  local.get $2
+ )
+ (func $assembly/index/multiplyAll (param $0 i32) (result i32)
+  (local $1 i32)
+  (local $2 i32)
+  (local $3 i32)
+  i32.const 1
+  local.set $1
+  local.get $0
+  call $~lib/rt/pure/__retain
+  local.tee $0
+  i32.load offset=8
+  i32.const 2
+  i32.shr_u
+  local.set $3
+  loop $for-loop|0
+   local.get $2
+   local.get $3
+   i32.lt_s
+   if
+    local.get $0
+    local.get $2
+    call $~lib/typedarray/Int32Array#__uget
+    local.get $1
+    i32.mul
+    local.set $1
+    local.get $2
+    i32.const 1
+    i32.add
+    local.set $2
+    br $for-loop|0
+   end
+  end
+  local.get $0
+  call $~lib/rt/pure/__release
+  local.get $1
+ )
+ (func $~lib/typedarray/Float32Array#__uget (param $0 i32) (param $1 i32) (result f32)
+  local.get $0
+  i32.load offset=4
+  local.get $1
+  i32.const 2
+  i32.shl
+  i32.add
+  f32.load
+ )
+ (func $assembly/index/divideAll (param $0 i32) (result f32)
+  (local $1 i32)
+  (local $2 i32)
+  (local $3 f32)
+  local.get $0
+  call $~lib/rt/pure/__retain
+  local.tee $0
+  i32.load offset=8
+  i32.const 2
+  i32.shr_u
+  i32.const 1
+  i32.sub
+  local.set $2
+  loop $for-loop|0
+   local.get $1
+   local.get $2
+   i32.lt_s
+   if
+    local.get $0
+    local.get $1
+    call $~lib/typedarray/Float32Array#__uget
+    local.get $0
+    local.get $1
+    i32.const 1
+    i32.add
+    local.tee $1
+    call $~lib/typedarray/Float32Array#__uget
+    f32.div
+    local.set $3
+    br $for-loop|0
+   end
+  end
+  local.get $0
+  call $~lib/rt/pure/__release
+  local.get $3
+ )
  (func $~lib/rt/pure/decrement (param $0 i32)
   (local $1 i32)
   (local $2 i32)
@@ -1509,31 +1672,26 @@
   i32.eq
   if
    block $__inlined_func$~lib/rt/__visit_members
-    block $invalid
-     block $~lib/arraybuffer/ArrayBufferView
-      local.get $0
-      i32.const 12
-      i32.add
-      i32.load
-      br_table $__inlined_func$~lib/rt/__visit_members $__inlined_func$~lib/rt/__visit_members $~lib/arraybuffer/ArrayBufferView $invalid
-     end
-     local.get $0
-     i32.load offset=20
-     local.tee $1
-     if
-      local.get $1
-      i32.const 1260
-      i32.ge_u
-      if
-       local.get $1
+    block $folding-inner1
+     block $invalid
+      block $~lib/arraybuffer/ArrayBufferView
+       local.get $0
        i32.const 20
+       i32.add
+       local.tee $1
+       i32.const 8
        i32.sub
-       call $~lib/rt/pure/decrement
+       i32.load
+       br_table $__inlined_func$~lib/rt/__visit_members $__inlined_func$~lib/rt/__visit_members $~lib/arraybuffer/ArrayBufferView $folding-inner1 $folding-inner1 $invalid
       end
+      local.get $1
+      call $~lib/arraybuffer/ArrayBufferView~visit
+      br $__inlined_func$~lib/rt/__visit_members
      end
-     br $__inlined_func$~lib/rt/__visit_members
+     unreachable
     end
-    unreachable
+    local.get $1
+    call $~lib/arraybuffer/ArrayBufferView~visit
    end
    local.get $2
    i32.const -2147483648
@@ -1569,6 +1727,22 @@
    i32.and
    i32.or
    i32.store offset=4
+  end
+ )
+ (func $~lib/arraybuffer/ArrayBufferView~visit (param $0 i32)
+  local.get $0
+  i32.load
+  local.tee $0
+  if
+   local.get $0
+   i32.const 1276
+   i32.ge_u
+   if
+    local.get $0
+    i32.const 20
+    i32.sub
+    call $~lib/rt/pure/decrement
+   end
   end
  )
 )
