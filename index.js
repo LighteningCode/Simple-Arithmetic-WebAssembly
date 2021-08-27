@@ -20,10 +20,10 @@ function operationAll(op, values){
 operation('add',5,10)
 operation('subtract',5,10)
 operation('divide',15,5)
-operation('multiply',15,5)
+operation('multiply',105,5)
 
 operationAll('addAll',[2,3,4,5])
-operationAll('subtractAll',[2,3,4,5])
+operationAll('subtractAll',[2,3,4,5,12])
 operationAll('multiplyAll',[2,3,4,5])
 operationAll('divideAll',[5,4,3,2].reverse())
 
